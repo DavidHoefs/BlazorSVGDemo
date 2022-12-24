@@ -24,12 +24,18 @@ const getTransformParameters = (element) => {
 const getTransformString = (scale, x, y) =>
     `scale(${scale}) translateX(${x}%) translateY(${y}%)`;
 
-function ZoomIn(direction, svg) {
+function ZoomIn(direction, svg, markerSvg) {
     const { scale, x, y } = getTransformParameters(svg);
     let dScale = 0.1;
     if (direction == "out") dScale *= -1;
     if (scale == 0.1 && direction == "out") dScale = 0;
     svg.style.transform = getTransformString(scale + dScale, x, y);
+
+    const { scale1, x1, y1 } = getTransformParameters(markerSvg);
+    let dScale1 = 0.1;
+    if (direction == "out") dScale1 *= -1;
+    if (scale1 == 0.1 && direction == "out") dScale1 = 0;
+    markerSvg.style.transform = getTransformString(scale1 + dScale1, x1, y1);
 };
 
 function pan(svg, direction) {

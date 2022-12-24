@@ -16,18 +16,19 @@
 
     @if (_loaded)
     {
-        <svg xmlns="http://www.w3.org/2000/svg" width="@_svgDoc.Width" height="@_svgDoc.Height" @onmousemove=@(e => MouseSrv.FireMove(this, e)) @onmouseup=@(e => MouseSrv.FireUp(this, e))>
+        <svg xmlns="http://www.w3.org/2000/svg" @ref="SvgReference" data-src="@_pathForSvg" width="@_svgDoc.Width" height="@_svgDoc.Height" id="svg" fill="@_svgDoc.Fill">
+
+        </svg>
+        <svg @ref="MarkerSvgReference" xmlns="http://www.w3.org/2000/svg" width="@_svgDoc.Width" height="@_svgDoc.Height" id="markerSvg" @onmousemove=@(e => MouseSrv.FireMove(this, e)) @onmouseup=@(e => MouseSrv.FireUp(this, e))>
             <Draggable @bind-X=_x @bind-Y=_y>
                 <circle r="6" stroke="black" class="Markers" stroke-width="1" fill="gray"/>
             </Draggable>
-            @foreach (var marker in markers)
+            @foreach (var marker in _markers)
             {
-                <g>
-                    <circle id="@marker.name" class="Markers" fill="red" transform="translate(@marker.x,@marker.y)" r="6" stroke="black" stroke-width="1"/>
-                </g>
+                <Draggable X="marker.X" Y="marker.Y">
+                    <circle id="@marker.Name" class="Markers" fill="red" transform="translate(@marker.X,@marker.Y)" r="6" stroke="black" stroke-width="1"/>
+                </Draggable>
             }
-        </svg>
-        <svg @ref="SvgReference" data-src="@_pathForSvg" width="@_svgDoc.Width" height="@_svgDoc.Height" id="svg" fill="@_svgDoc.Fill">
 
         </svg>
     }
@@ -68,18 +69,19 @@
     private SvgDocument? _svgDoc;
     private string _pathForSvg = "";
     private ElementReference SvgReference { get; set; }
+    private ElementReference MarkerSvgReference { get; set; }
     private double _x = 50;
     private double _y = 50;
-    private List<MarkerModel> markers = new();
+    private List<MarkerModel> _markers = new();
 
     [Parameter]
-    public string SvgSource { get; set; } = "C:\\Users\\David Hoefs\\OneDrive\\Desktop\\maptest.svg";
+    public string SvgSource { get; set; } = "\\wwwroot\\Maps\\maptest.svg";
 
     protected override async Task OnInitializedAsync()
     {
         _pathForSvg = $@"Maps/{SvgSource}";
-        markers = await SetupMarkers();
-        _svgDoc = SvgDocument.Open<SvgDocument>("C:\\\\Users\\\\David Hoefs\\\\OneDrive\\\\Desktop\\\\maptest.svg");
+        _markers = await SetupMarkers();
+        _svgDoc = SvgDocument.Open<SvgDocument>("wwwroot\\\\Maps\\\\maptest.svg");
         _loaded = true;
         StateHasChanged();
     }
@@ -89,10 +91,12 @@
         var tempMarkers = new List<MarkerModel>();
         for (var i = 0; i < 10; i++)
         {
-            var temp = new MarkerModel();
-            temp.x = i * 10;
-            temp.y = i * 10 + 2;
-            temp.name = $"Marker {i.ToString()}";
+            var temp = new MarkerModel
+            {
+                X = i * 10,
+                Y = i * 10 + 2,
+                Name = $"Marker {i.ToString()}"
+            };
             tempMarkers.Add(temp);
         }
         return tempMarkers;
@@ -100,13 +104,13 @@
 
     private async void ZoomIn()
     {
-        await JsRuntime.InvokeVoidAsync("ZoomIn", "in", SvgReference);
+        await JsRuntime.InvokeVoidAsync("ZoomIn", "in", SvgReference, MarkerSvgReference);
         StateHasChanged();
     }
 
     private async void ZoomOut()
     {
-        await JsRuntime.InvokeVoidAsync("ZoomIn", "out", SvgReference);
+        await JsRuntime.InvokeVoidAsync("ZoomIn", "out", SvgReference, MarkerSvgReference);
         StateHasChanged();
     }
 
@@ -116,11 +120,11 @@
         StateHasChanged();
     }
 
-    public struct MarkerModel
+    private record MarkerModel
     {
-        public double x { get; set; }
-        public double y { get; set; }
-        public string name { get; set; }
+        public double X { get; init; }
+        public double Y { get; init; }
+        public string Name { get; init; }
     }
 
 }
