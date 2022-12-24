@@ -1,0 +1,26 @@
+﻿@page "/movement"
+@using Svg
+@using SvgLibrary
+@inject IJSRuntime JSRuntime
+
+
+<div>
+
+    <SVGComponent SvgSource="maptest.svg"></SVGComponent>
+</div>
+
+
+
+@code
+{
+
+    private SvgDocument svgDoc;
+
+    protected override async Task OnInitializedAsync()
+    {
+        svgDoc = SvgTest.TestSvg("C:\\Users\\David Hoefs\\OneDrive\\Desktop\\maptest.svg");
+        StateHasChanged();
+    }
+
+
+}

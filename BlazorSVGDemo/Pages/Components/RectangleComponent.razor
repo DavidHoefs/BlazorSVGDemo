@@ -1,0 +1,72 @@
+﻿@using BlazorSVGDemo.Models
+@inject IJSRuntime JSRuntime
+@inject MainViewModel MainViewModel;
+
+<g id="@($"Item{DataContext.RectangleId}")">
+
+    <rect style="cursor: @pointer; fill: rgb(@DataContext.R, @DataContext.G, @DataContext.B);"
+          @onmousemove="MouseMove"
+          @onmousedown="MouseDown"
+          @onmouseup="MouseUp"
+          @onmouseout="MouseOut"
+          width="@DataContext.Width" height="@DataContext.Height"
+          x="@DataContext.X" y="@DataContext.Y"/>
+
+    <text style="-moz-user-select: none; -ms-user-select: none; -webkit-user-select: none; pointer-events: none; user-select: none;"
+          x="@(DataContext.X + 4)" y="@(DataContext.Y + 20)" fill="black">
+        @DataContext.Position
+    </text>
+
+</g>
+
+@code {
+
+    [Parameter]
+    public Action<string> ChangeSelected { get; set; }
+
+    [Parameter]
+    public Rectangle DataContext { get; set; }
+
+    #region Cursor Pointer Movement
+
+    //all-scroll
+    [Parameter]
+    public string pointer { get; set; } = "pointer";
+
+    #endregion
+
+    #region Mouse Events
+
+    public void MouseDown(MouseEventArgs e)
+    {
+        if (MainViewModel.SelectedItem == -1)
+        {
+            DataContext.OriginalX = (int)e.ClientX - DataContext.X - MainViewModel.ContainerX;
+            DataContext.OriginalY = (int)e.ClientY - DataContext.Y - MainViewModel.ContainerY;
+
+            MainViewModel.SelectedItem = DataContext.RectangleId;
+            ChangeSelected?.Invoke($"Item{DataContext.RectangleId}");
+        }
+    }
+
+    public void MouseUp(MouseEventArgs args)
+    {
+        if (MainViewModel.SelectedItem == DataContext.RectangleId)
+        {
+            MainViewModel.SelectedItem = -1;
+        }
+    }
+
+    public void MouseOut(MouseEventArgs e)
+    {
+        MainViewModel.OverChild = false;
+    }
+
+    public void MouseMove(MouseEventArgs e)
+    {
+        MainViewModel.OverChild = true;
+    }
+
+    #endregion
+
+}
