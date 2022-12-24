@@ -1,8 +1,8 @@
 ﻿#svg {
     float: right;
-    z-index: -1;
-    position: absolute;
     overflow: visible;
+    position: absolute;
+    z-index: -1;
 }
 
 .svg-container {
@@ -37,11 +37,13 @@ p {
     margin: 0;
     padding: 0;
 }
+
 /*This is to prevent text highlighting when dragging*/
+
 .dragtext {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
     user-select: none;
 }

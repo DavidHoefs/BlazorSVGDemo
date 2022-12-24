@@ -1,4 +1,3 @@
-
 using BlazorSVGDemo.Services;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,33 +1,52 @@
 ﻿@using BlazorSVGDemo.Services
 @inject IMouseService mouseSrv;
 
-<g transform="translate(@x, @y)" cursor=@cursor @onmousedown=OnDown
+<g transform="translate(@x, @y)" cursor="@cursor "@onmousedown="OnDown"
    @onmousedown:stopPropagation="true">
     @ChildContent
 </g>
 
 @code {
 #nullable enable
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 #nullable disable
 
     double? x;
+
     [Parameter]
     public double X
     {
         get => x ?? 0;
-        set { if (!x.HasValue || (!isDown & XChanged.HasDelegate)) { x = value; } }
+        set
+        {
+            if (!x.HasValue || !isDown & XChanged.HasDelegate)
+            {
+                x = value;
+            }
+        }
     }
-    [Parameter] public EventCallback<double> XChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<double> XChanged { get; set; }
 
     double? y;
+
     [Parameter]
     public double Y
     {
         get => y ?? 0;
-        set { if (!y.HasValue || (!isDown & YChanged.HasDelegate)) { y = value; } }
+        set
+        {
+            if (!y.HasValue || !isDown & YChanged.HasDelegate)
+            {
+                y = value;
+            }
+        }
     }
-    [Parameter] public EventCallback<double> YChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<double> YChanged { get; set; }
 
 
     protected override void OnInitialized()
@@ -40,6 +59,7 @@
 
     string cursor = "grab";
     bool _isDown;
+
     bool isDown
     {
         get => _isDown;
@@ -52,6 +72,7 @@
 
     double cursorX;
     double cursorY;
+
     void OnDown(MouseEventArgs e)
     {
         isDown = true;
@@ -60,7 +81,9 @@
     }
 #nullable enable
     void OnUpLeave(object? _, MouseEventArgs e)
-        => isDown = false;
+    {
+        isDown = false;
+    }
 #nullable disable
 #nullable enable
     void OnMove(object? _, MouseEventArgs e)
@@ -84,4 +107,5 @@
         mouseSrv.OnMove -= OnMove;
         mouseSrv.OnUp -= OnUpLeave;
     }
+
 }

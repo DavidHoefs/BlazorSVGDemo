@@ -1,6 +1,6 @@
 ﻿@page "/svg"
-@using Svg
 @using BlazorSVGDemo.Services
+@using Svg
 @inject IJSRuntime JsRuntime
 @inject MouseService MouseSrv;
 
@@ -13,22 +13,22 @@
     <RadzenButton Click="@(args => Pan("up"))" Text="up"></RadzenButton>
 </div>
 <div class="container-fluid svg-container">
-    
+
     @if (_loaded)
     {
         <svg xmlns="http://www.w3.org/2000/svg" width="@_svgDoc.Width" height="@_svgDoc.Height" @onmousemove=@(e => MouseSrv.FireMove(this, e)) @onmouseup=@(e => MouseSrv.FireUp(this, e))>
             <Draggable @bind-X=_x @bind-Y=_y>
-                <circle r="6" stroke="black" class="Markers" stroke-width="1" fill="gray" />
+                <circle r="6" stroke="black" class="Markers" stroke-width="1" fill="gray"/>
             </Draggable>
             @foreach (var marker in markers)
             {
                 <g>
-                    <circle id="@marker.name" class="Markers" fill="red" transform="translate(@marker.x,@marker.y)" r="6" stroke="black" stroke-width="1" />
+                    <circle id="@marker.name" class="Markers" fill="red" transform="translate(@marker.x,@marker.y)" r="6" stroke="black" stroke-width="1"/>
                 </g>
             }
         </svg>
         <svg @ref="SvgReference" data-src="@_pathForSvg" width="@_svgDoc.Width" height="@_svgDoc.Height" id="svg" fill="@_svgDoc.Fill">
-            
+
         </svg>
     }
     else
@@ -51,15 +51,18 @@
         margin: 0;
         padding: 0;
     }
+
     /*This is to prevent text highlighting when dragging*/
+
     .dragtext {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
         user-select: none;
     }
 </style>
+
 @code {
     private bool _loaded = false;
     private SvgDocument? _svgDoc;
@@ -67,7 +70,7 @@
     private ElementReference SvgReference { get; set; }
     private double _x = 50;
     private double _y = 50;
-    private List<MarkerModel> markers = new List<MarkerModel>();
+    private List<MarkerModel> markers = new();
 
     [Parameter]
     public string SvgSource { get; set; } = "C:\\Users\\David Hoefs\\OneDrive\\Desktop\\maptest.svg";
@@ -93,7 +96,6 @@
             tempMarkers.Add(temp);
         }
         return tempMarkers;
-
     }
 
     private async void ZoomIn()
@@ -119,7 +121,6 @@
         public double x { get; set; }
         public double y { get; set; }
         public string name { get; set; }
-    
     }
 
 }
