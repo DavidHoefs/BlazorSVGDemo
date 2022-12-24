@@ -1,6 +1,6 @@
 ﻿@page "/movement"
 @using Svg
-@inject IJSRuntime JSRuntime
+
 
 <div class="border-top">
     <SVGComponent SvgSource="maptest.svg"></SVGComponent>
@@ -15,7 +15,7 @@
     protected override async Task OnInitializedAsync()
     {
         svgDoc = SvgDocument.Open<SvgDocument>("C:\\\\Users\\\\David Hoefs\\\\OneDrive\\\\Desktop\\\\maptest.svg");
-       
+
         StateHasChanged();
     }
 

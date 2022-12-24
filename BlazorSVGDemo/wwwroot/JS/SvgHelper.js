@@ -7,7 +7,6 @@ const zoom = (direction) => {
     svg.style.transform = getTransformString(scale + dScale, x, y);
 };
 
-
 const getTransformParameters = (element) => {
     const transform = element.style.transform;
     let scale = 1,

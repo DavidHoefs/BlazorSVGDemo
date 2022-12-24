@@ -4,7 +4,7 @@
 
 
 <div class="container-fluid svg-container">
-    <div >
+    <div>
         <RadzenButton Click="@(args => ZoomIn())" Text="Zoom IN"></RadzenButton>
         <RadzenButton Click="@(args => ZoomOut())" Text="Zoom Out"></RadzenButton>
         <RadzenButton Click="@(args => Pan("right"))" Text=">"></RadzenButton>
@@ -14,7 +14,7 @@
     </div>
     @if (_loaded)
     {
-        <svg @ref="SvgReference" data-src="@pathForSvg" width="@svgDoc.Width" height="@svgDoc.Height" fill="@svgDoc.Fill" style="float: none; z-index: -1;"></svg>
+        <svg @ref="SvgReference" data-src="@_pathForSvg" width="@_svgDoc.Width" height="@_svgDoc.Height" fill="@_svgDoc.Fill" style="float: none; z-index: -1;"></svg>
     }
     else
     {
@@ -24,8 +24,8 @@
 
 @code {
     private bool _loaded = false;
-    private SvgDocument? svgDoc;
-    private string pathForSvg = "";
+    private SvgDocument? _svgDoc;
+    private string _pathForSvg = "";
     private ElementReference SvgReference { get; set; }
 
     [Parameter]
@@ -33,8 +33,8 @@
 
     protected override void OnInitialized()
     {
-        pathForSvg = $@"Maps/{SvgSource}";
-        svgDoc = SvgDocument.Open<SvgDocument>("C:\\\\Users\\\\David Hoefs\\\\OneDrive\\\\Desktop\\\\maptest.svg");
+        _pathForSvg = $@"Maps/{SvgSource}";
+        _svgDoc = SvgDocument.Open<SvgDocument>("C:\\\\Users\\\\David Hoefs\\\\OneDrive\\\\Desktop\\\\maptest.svg");
         _loaded = true;
         StateHasChanged();
     }
