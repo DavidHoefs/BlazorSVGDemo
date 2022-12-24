@@ -4,7 +4,6 @@
 @inject IJSRuntime JsRuntime
 
 
-
 <div class="container-fluid svg-container">
     <div >
         <RadzenButton Click="@(args => ZoomIn())" Text="Zoom IN"></RadzenButton>
@@ -16,7 +15,7 @@
     </div>
     @if (_loaded)
     {
-        <svg @ref="SvgReference" data-src="@pathForSvg" width="@svgDoc.Width" height="@svgDoc.Height" fill="@svgDoc.Fill" style="z-index: -1; float:none"></svg>
+        <svg @ref="SvgReference" data-src="@pathForSvg" width="@svgDoc.Width" height="@svgDoc.Height" fill="@svgDoc.Fill" style="float: none; z-index: -1;"></svg>
     }
     else
     {
@@ -30,23 +29,24 @@
         float: right;
         z-index: -1;
     }
-    .svg-container {
-        padding: 5% 5% 5% 5%;
-        display: flex;
-        align-content: center;
-        justify-content: space-between;
-        margin-top: 20px;
-        margin-bottom: 20px;
 
-    }
-    .header {
-        padding: 0 70px;
-        display: flex;
+    .svg-container {
         align-content: center;
+        display: flex;
         justify-content: space-between;
-        margin-top: 20px;
         margin-bottom: 20px;
-}
+        margin-top: 20px;
+        padding: 5% 5% 5% 5%;
+    }
+
+    .header {
+        align-content: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        padding: 0 70px;
+    }
     
 </style>
 
@@ -81,7 +81,7 @@
 
     private async void Pan(string direction)
     {
-        await JsRuntime.InvokeVoidAsync("pan", SvgReference,direction);
+        await JsRuntime.InvokeVoidAsync("pan", SvgReference, direction);
         StateHasChanged();
     }
 
