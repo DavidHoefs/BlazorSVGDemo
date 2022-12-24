@@ -23,9 +23,9 @@ const getTransformParameters = (element) => {
 };
 
 const getTransformString = (scale, x, y) =>
-    "scale(" + scale + ") " + "translateX(" + x + "%) translateY(" + y + "%)";
+    `scale(${scale}) translateX(${x}%) translateY(${y}%)`;
 
-function ZoomIn(direction,svg) {
+function ZoomIn(direction, svg) {
     const { scale, x, y } = getTransformParameters(svg);
     let dScale = 0.1;
     if (direction == "out") dScale *= -1;

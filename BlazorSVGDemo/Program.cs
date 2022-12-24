@@ -1,7 +1,5 @@
 using BlazorSVGDemo.Data;
 using BlazorSVGDemo.Models;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 

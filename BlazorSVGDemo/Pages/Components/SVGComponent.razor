@@ -1,18 +1,15 @@
 ﻿@page "/svg"
-@using Microsoft.JSInterop
 @using Svg
 @using SvgLibrary
-@using System.Reflection.Metadata
 @inject IJSRuntime JsRuntime
 
 <div class="container-fluid">
     <div>
-        <RadzenButton Click=@(args => ZoomIn()) Text="Zoom IN"></RadzenButton>
-        <RadzenButton Click=@(args => ZoomOut()) Text="Zoom Out"></RadzenButton>
+        <RadzenButton Click="@(args => ZoomIn())" Text="Zoom IN"></RadzenButton>
+        <RadzenButton Click="@(args => ZoomOut())" Text="Zoom Out"></RadzenButton>
     </div>
     @if (_loaded)
     {
-        
         <svg @ref="SvgReference" data-src="@pathForSvg" width="@svgDoc.Width" height="@svgDoc.Height" fill="@svgDoc.Fill"></svg>
     }
     else
@@ -34,7 +31,7 @@
     private bool _loaded = false;
     private SvgDocument svgDoc;
     private string pathForSvg = "";
-    public ElementReference SvgReference { get; set; }
+    private ElementReference SvgReference { get; set; }
 
     [Parameter]
     public string SvgSource { get; set; } = "C:\\Users\\David Hoefs\\OneDrive\\Desktop\\maptest.svg";
@@ -47,15 +44,15 @@
         StateHasChanged();
     }
 
-    public async void ZoomIn()
+    private async void ZoomIn()
     {
-        await JsRuntime.InvokeVoidAsync("ZoomIn", "in",SvgReference);
+        await JsRuntime.InvokeVoidAsync("ZoomIn", "in", SvgReference);
         StateHasChanged();
     }
 
-    public async void ZoomOut()
+    private async void ZoomOut()
     {
-        await JsRuntime.InvokeVoidAsync("ZoomIn", "out",SvgReference);
+        await JsRuntime.InvokeVoidAsync("ZoomIn", "out", SvgReference);
         StateHasChanged();
     }
 
