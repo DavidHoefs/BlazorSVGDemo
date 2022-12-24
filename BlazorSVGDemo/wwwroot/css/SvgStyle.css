@@ -1,0 +1,22 @@
+﻿#svg {
+    float: right;
+    z-index: -1;
+}
+
+.svg-container {
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 5% 5% 5% 5%;
+}
+
+.header {
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 0 70px;
+}

@@ -1,6 +1,5 @@
 ﻿@page "/svg"
 @using Svg
-@using SvgLibrary
 @inject IJSRuntime JsRuntime
 
 
@@ -23,36 +22,9 @@
     }
 </div>
 
-
-<style>
-    #svg {
-        float: right;
-        z-index: -1;
-    }
-
-    .svg-container {
-        align-content: center;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        margin-top: 20px;
-        padding: 5% 5% 5% 5%;
-    }
-
-    .header {
-        align-content: center;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        margin-top: 20px;
-        padding: 0 70px;
-    }
-    
-</style>
-
 @code {
     private bool _loaded = false;
-    private SvgDocument svgDoc;
+    private SvgDocument? svgDoc;
     private string pathForSvg = "";
     private ElementReference SvgReference { get; set; }
 
@@ -62,7 +34,7 @@
     protected override void OnInitialized()
     {
         pathForSvg = $@"Maps/{SvgSource}";
-        svgDoc = SvgTest.TestSvg("C:\\Users\\David Hoefs\\OneDrive\\Desktop\\maptest.svg");
+        svgDoc = SvgDocument.Open<SvgDocument>("C:\\\\Users\\\\David Hoefs\\\\OneDrive\\\\Desktop\\\\maptest.svg");
         _loaded = true;
         StateHasChanged();
     }

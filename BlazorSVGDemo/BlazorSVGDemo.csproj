@@ -7,13 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="0.17.1" />
     <PackageReference Include="Radzen.Blazor" Version="4.4.7" />
-    <PackageReference Include="SvgLib" Version="1.0.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SvgLibrary\SvgLibrary.csproj" />
+    <PackageReference Include="Svg" Version="3.4.4" />
   </ItemGroup>
 
 </Project>

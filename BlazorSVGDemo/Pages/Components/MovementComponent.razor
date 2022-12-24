@@ -1,6 +1,5 @@
 ﻿@page "/movement"
 @using Svg
-@using SvgLibrary
 @inject IJSRuntime JSRuntime
 
 <div class="border-top">
@@ -11,11 +10,12 @@
 @code
 {
 
-    private SvgDocument svgDoc;
+    private SvgDocument? svgDoc;
 
     protected override async Task OnInitializedAsync()
     {
-        svgDoc = SvgTest.TestSvg("C:\\Users\\David Hoefs\\OneDrive\\Desktop\\maptest.svg");
+        svgDoc = SvgDocument.Open<SvgDocument>("C:\\\\Users\\\\David Hoefs\\\\OneDrive\\\\Desktop\\\\maptest.svg");
+       
         StateHasChanged();
     }
 
