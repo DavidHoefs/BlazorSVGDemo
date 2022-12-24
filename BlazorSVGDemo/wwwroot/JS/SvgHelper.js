@@ -31,4 +31,25 @@ function ZoomIn(direction, svg) {
     if (direction == "out") dScale *= -1;
     if (scale == 0.1 && direction == "out") dScale = 0;
     svg.style.transform = getTransformString(scale + dScale, x, y);
-}
+};
+
+function pan(svg, direction) {
+    const { scale, x, y } = getTransformParameters(svg);
+    let dx = 0,
+        dy = 0;
+    switch (direction) {
+    case "left":
+        dx = -3;
+        break;
+    case "right":
+        dx = 3;
+        break;
+    case "up":
+        dy = -3;
+        break;
+    case "down":
+        dy = 3;
+        break;
+    }
+    svg.style.transform = getTransformString(scale, x + dx, y + dy);
+};

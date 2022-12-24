@@ -3,14 +3,20 @@
 @using SvgLibrary
 @inject IJSRuntime JsRuntime
 
-<div class="container-fluid">
-    <div>
+
+
+<div class="container-fluid svg-container">
+    <div >
         <RadzenButton Click="@(args => ZoomIn())" Text="Zoom IN"></RadzenButton>
         <RadzenButton Click="@(args => ZoomOut())" Text="Zoom Out"></RadzenButton>
+        <RadzenButton Click="@(args => Pan("right"))" Text=">"></RadzenButton>
+        <RadzenButton Click="@(args => Pan("left"))" Text="<"></RadzenButton>
+        <RadzenButton Click="@(args => Pan("down"))" Text="down"></RadzenButton>
+        <RadzenButton Click="@(args => Pan("up"))" Text="up"></RadzenButton>
     </div>
     @if (_loaded)
     {
-        <svg @ref="SvgReference" data-src="@pathForSvg" width="@svgDoc.Width" height="@svgDoc.Height" fill="@svgDoc.Fill"></svg>
+        <svg @ref="SvgReference" data-src="@pathForSvg" width="@svgDoc.Width" height="@svgDoc.Height" fill="@svgDoc.Fill" style="z-index: -1; float:none"></svg>
     }
     else
     {
@@ -22,9 +28,26 @@
 <style>
     #svg {
         float: right;
-        margin-top: -63.5%;
-        z-index: 1;
+        z-index: -1;
     }
+    .svg-container {
+        padding: 5% 5% 5% 5%;
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+    }
+    .header {
+        padding: 0 70px;
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        margin-bottom: 20px;
+}
+    
 </style>
 
 @code {
@@ -53,6 +76,12 @@
     private async void ZoomOut()
     {
         await JsRuntime.InvokeVoidAsync("ZoomIn", "out", SvgReference);
+        StateHasChanged();
+    }
+
+    private async void Pan(string direction)
+    {
+        await JsRuntime.InvokeVoidAsync("pan", SvgReference,direction);
         StateHasChanged();
     }
 
