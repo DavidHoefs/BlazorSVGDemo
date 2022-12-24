@@ -1,17 +1,17 @@
 ﻿@page "/movement"
 @using Svg
+@using BlazorSVGDemo.Services
 
 
-<div class="border-top">
+<div class="border-top" style="height: auto; width: auto;">
+    
     <SVGComponent SvgSource="maptest.svg"></SVGComponent>
+
 </div>
-
-
 @code
 {
 
     private SvgDocument? svgDoc;
-
     protected override async Task OnInitializedAsync()
     {
         svgDoc = SvgDocument.Open<SvgDocument>("C:\\\\Users\\\\David Hoefs\\\\OneDrive\\\\Desktop\\\\maptest.svg");

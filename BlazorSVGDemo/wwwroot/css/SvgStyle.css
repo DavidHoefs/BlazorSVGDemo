@@ -1,6 +1,8 @@
 ﻿#svg {
     float: right;
     z-index: -1;
+    position: absolute;
+    overflow: visible;
 }
 
 .svg-container {
@@ -19,4 +21,27 @@
     margin-bottom: 20px;
     margin-top: 20px;
     padding: 0 70px;
+}
+
+.Markers:hover {
+    cursor: pointer;
+    fill: white !important;
+}
+
+.deleteMarkers:hover {
+    cursor: pointer;
+    fill: white !important;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+/*This is to prevent text highlighting when dragging*/
+.dragtext {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

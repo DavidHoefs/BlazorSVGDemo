@@ -1,0 +1,87 @@
+﻿@using BlazorSVGDemo.Services
+@inject IMouseService mouseSrv;
+
+<g transform="translate(@x, @y)" cursor=@cursor @onmousedown=OnDown
+   @onmousedown:stopPropagation="true">
+    @ChildContent
+</g>
+
+@code {
+#nullable enable
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+#nullable disable
+
+    double? x;
+    [Parameter]
+    public double X
+    {
+        get => x ?? 0;
+        set { if (!x.HasValue || (!isDown & XChanged.HasDelegate)) { x = value; } }
+    }
+    [Parameter] public EventCallback<double> XChanged { get; set; }
+
+    double? y;
+    [Parameter]
+    public double Y
+    {
+        get => y ?? 0;
+        set { if (!y.HasValue || (!isDown & YChanged.HasDelegate)) { y = value; } }
+    }
+    [Parameter] public EventCallback<double> YChanged { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        mouseSrv.OnMove += OnMove;
+        mouseSrv.OnUp += OnUpLeave;
+        base.OnInitialized();
+    }
+
+
+    string cursor = "grab";
+    bool _isDown;
+    bool isDown
+    {
+        get => _isDown;
+        set
+        {
+            _isDown = value;
+            cursor = _isDown ? "grabbing" : "grab";
+        }
+    }
+
+    double cursorX;
+    double cursorY;
+    void OnDown(MouseEventArgs e)
+    {
+        isDown = true;
+        cursorX = e.ClientX;
+        cursorY = e.ClientY;
+    }
+#nullable enable
+    void OnUpLeave(object? _, MouseEventArgs e)
+        => isDown = false;
+#nullable disable
+#nullable enable
+    void OnMove(object? _, MouseEventArgs e)
+    {
+        if (!isDown)
+            return;
+
+        x = x - (cursorX - e.ClientX);
+        y = y - (cursorY - e.ClientY);
+
+        cursorX = e.ClientX;
+        cursorY = e.ClientY;
+
+        XChanged.InvokeAsync(x.Value);
+        YChanged.InvokeAsync(y.Value);
+    }
+#nullable disable
+
+    public void Dispose()
+    {
+        mouseSrv.OnMove -= OnMove;
+        mouseSrv.OnUp -= OnUpLeave;
+    }
+}

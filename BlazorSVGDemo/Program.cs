@@ -1,13 +1,14 @@
-using BlazorSVGDemo.Data;
-using BlazorSVGDemo.Models;
+
+using BlazorSVGDemo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddSingleton<MainViewModel>();
+
+builder.Services.AddSingleton<MouseService>();
+builder.Services.AddSingleton<IMouseService>(ff => ff.GetRequiredService<MouseService>());
 
 var app = builder.Build();
 
