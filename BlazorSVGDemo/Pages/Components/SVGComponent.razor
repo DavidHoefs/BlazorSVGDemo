@@ -11,12 +11,13 @@
     <RadzenButton Click="@(args => Pan("left"))" Text="<"></RadzenButton>
     <RadzenButton Click="@(args => Pan("down"))" Text="down"></RadzenButton>
     <RadzenButton Click="@(args => Pan("up"))" Text="up"></RadzenButton>
+    <RadzenCheckBox Name="ShowMarkersCB" @bind-Value=@Checked TValue="bool?" Change=@(args => CheckChanged(args, "CheckBox1 CheckBox"))></RadzenCheckBox>
 </div>
 <div class="container-fluid svg-container">
 
     @if (_loaded)
     {
-        <svg xmlns="http://www.w3.org/2000/svg" @ref="SvgReference" data-src="@_pathForSvg" width="@_svgDoc.Width" height="@_svgDoc.Height" id="svg" fill="@_svgDoc.Fill">
+        <svg xmlns="http://www.w3.org/2000/svg" data-cache="disabled" @ref="SvgReference" data-src="@_pathForSvg" width="@_svgDoc.Width" height="@_svgDoc.Height" id="svg" fill="@_svgDoc.Fill">
 
         </svg>
         <svg @ref="MarkerSvgReference" xmlns="http://www.w3.org/2000/svg" width="@_svgDoc.Width" height="@_svgDoc.Height" id="markerSvg" @onmousemove=@(e => MouseSrv.FireMove(this, e)) @onmouseup=@(e => MouseSrv.FireUp(this, e))>
@@ -66,6 +67,7 @@
 
 @code {
     private bool _loaded = false;
+    bool? Checked;
     private SvgDocument? _svgDoc;
     private string _pathForSvg = "";
     private ElementReference SvgReference { get; set; }
@@ -80,8 +82,13 @@
     protected override async Task OnInitializedAsync()
     {
         _pathForSvg = $@"Maps/{SvgSource}";
-        _markers = await SetupMarkers();
+        if (Checked is true)
+        {
+            _markers = await SetupMarkers();
+        }
+        
         _svgDoc = SvgDocument.Open<SvgDocument>("wwwroot\\\\Maps\\\\maptest.svg");
+        SvgHelperService.AddMarker(SvgSource,"120","120");
         _loaded = true;
         StateHasChanged();
     }
@@ -93,8 +100,8 @@
         {
             var temp = new MarkerModel
             {
-                X = i * 10,
-                Y = i * 10 + 2,
+                X = (i * 10) + 100,
+                Y = (i * 10 + 2) + 100,
                 Name = $"Marker {i.ToString()}"
             };
             tempMarkers.Add(temp);
@@ -120,11 +127,26 @@
         StateHasChanged();
     }
 
+    async void CheckChanged(bool? value, string name)
+    {
+        Console.WriteLine(value.ToString());
+        if (Checked is true)
+        {
+            _markers = await SetupMarkers();
+        }
+        else
+        {
+            _markers = new List<MarkerModel>();
+        }
+        
+        StateHasChanged();
+    }
+
     private record MarkerModel
     {
         public double X { get; init; }
         public double Y { get; init; }
-        public string Name { get; init; }
+        public string? Name { get; init; }
     }
 
 }

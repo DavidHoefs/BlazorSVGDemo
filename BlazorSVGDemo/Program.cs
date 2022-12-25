@@ -9,6 +9,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<MouseService>();
 builder.Services.AddSingleton<IMouseService>(ff => ff.GetRequiredService<MouseService>());
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

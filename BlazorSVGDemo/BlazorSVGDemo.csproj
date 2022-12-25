@@ -11,4 +11,10 @@
     <PackageReference Include="Svg" Version="3.4.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\Maps\maptest.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
