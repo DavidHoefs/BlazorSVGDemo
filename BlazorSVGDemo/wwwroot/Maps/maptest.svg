@@ -75,6 +75,63 @@
 		</text>
   </g>
   <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
+    <circle transform="translate(100,102)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(110,112)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(120,122)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(130,132)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(140,142)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(150,152)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(160,162)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(170,172)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(180,182)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(190,192)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(100,102)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(110,112)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(120,122)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(130,132)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(140,142)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(150,152)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(160,162)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(170,172)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(180,182)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
+  </g>
+  <g xmlns="">
+    <circle transform="translate(190,192)" class="Markers" fill="blue" r="6" stroke="black" stroke-width="1" />
   </g>
 </svg>

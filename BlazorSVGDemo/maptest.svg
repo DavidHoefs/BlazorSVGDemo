@@ -74,34 +74,5 @@
 			Ref
 		</text>
   </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
-  <g xmlns="">
-    <circle transform="translate(120,120)" class="Markers" fill="blue" r="50" stroke="black" stroke-width="1" />
-  </g>
+  
 </svg>
