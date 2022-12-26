@@ -35,8 +35,6 @@
     }
     else
     {
-
-
         <p>Loading SVG....</p>
     }
 </div>
@@ -90,11 +88,11 @@
         }
         foreach (var marker in _markers)
         {
-            //SvgHelperService.AddMarker("wwwroot\\\\Maps\\\\mode.svg", marker.X.ToString(), marker.Y.ToString());
+    //SvgHelperService.AddMarker("wwwroot\\\\Maps\\\\mode.svg", marker.X.ToString(), marker.Y.ToString());
         }
 
         _svgDoc = SvgDocument.Open<SvgDocument>("wwwroot\\\\Maps\\\\mode.svg");
-        
+
         _loaded = true;
         StateHasChanged();
     }
