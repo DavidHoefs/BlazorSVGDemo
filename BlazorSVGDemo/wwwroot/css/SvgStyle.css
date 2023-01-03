@@ -5,11 +5,17 @@
     z-index: -1;
 }
 
+#svg3 {
+    /*float: right;*/
+    overflow: scroll;
+    position: absolute;
+    z-index: 1;
+}
+
 #svg2 {
     /*float: right;*/
     overflow: scroll;
     /*position: absolute;*/
-    z-index: -1;
 }
 
 .svg-container {

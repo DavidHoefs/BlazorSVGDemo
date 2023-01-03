@@ -7,6 +7,7 @@ public interface IMouseService
     event EventHandler<MouseEventArgs>? OnMove;
 
     event EventHandler<MouseEventArgs>? OnUp;
+
 #nullable enable
 #nullable disable
 }
@@ -17,6 +18,7 @@ public class MouseService : IMouseService
     public event EventHandler<MouseEventArgs>? OnMove;
 
     public event EventHandler<MouseEventArgs>? OnUp;
+
 #nullable enable
 #nullable disable
 

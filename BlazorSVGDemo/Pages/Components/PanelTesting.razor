@@ -1,29 +1,83 @@
 ﻿@page "/panel"
-@using Svg
 @using BlazorSVGDemo.Services
-
+@using Svg
+@inject IJSRuntime JsRuntime;
+@inject MouseService MouseSrv
+// TODO - Add tailwinds CSS to fix styling on pan/zoom https://www.tailwindcsscomponent.com/panzoom-control-template#what-is-tailwind-css
 @if (_loaded)
 {
     <div class="container">
         <div class="section">
             <div class="content">
-                <RadzenPanel AllowCollapse="true">
-                    <HeaderTemplate>
-                        <h4 class="m-0 d-flex align-items-center">
-                            <RadzenButton Text="Zoom IN"></RadzenButton>
-                            <RadzenButton Text="Zoom Out"></RadzenButton>
-                            <RadzenButton Text="right"></RadzenButton>
-                            <RadzenButton Text="left"></RadzenButton>
-                            <RadzenButton Text="down"></RadzenButton>
-                            <RadzenButton Text="up"></RadzenButton>
-                            <RadzenCheckBox Name="ShowMarkersCB" TValue="bool?"></RadzenCheckBox>
-                        </h4>
-                    </HeaderTemplate>
-                </RadzenPanel>
+
+                <div>
+                    <div class="flex fixed right-2 bottom-2 cursor-default">
+                        <div class="flex-initial bg-white bg-opacity-90
+                                        rounded shadow p-2 py-2
+                                        cursor-default flex flex-col
+                                        hover:bg-opacity-100
+                                        lg:bottom-3 lg:right-3
+                                        transition duration-200 ease-in-out">
+
+
+                            <!-- Zoom Controls-->
+                            <div class="flex flex-col">
+                                <button class="w-9 h-9 min-w-min
+            rounded-none rounded-t-full text-lg
+            bg-gray-300 bg-opacity-30
+            border border-gray-300 border-opacity-30
+            hover:bg-yellow-400 hover:bg-opacity-50
+            outline-none hover:shadow-md
+            transition duration-200 ease-in-out
+            mb-0 border
+            border-gray-300 border-opacity-30
+            hover:border-yellow-200" type="button" title="Zoom In" @onclick="@(() => ZoomOut())">
+                                    <i class="mdi mdi-minus"></i>
+                                </button>
+
+
+                                <button class="w-9 h-9 min-w-min
+            rounded-none rounded-b-full text-lg
+            bg-gray-300 bg-opacity-30
+            border border-gray-300 border-opacity-30
+            hover:bg-yellow-400 hover:bg-opacity-50
+            outline-none hover:shadow-md
+            transition duration-200 ease-in-out
+            mb-0 border
+            border-gray-300 border-opacity-30
+            hover:border-yellow-200"
+                                        title="Zoom Out" @onclick="@(() => ZoomIn())">
+                                    <i class="mdi mdi-plus"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
             <div id="scrollableContent" class="scrollable-content content">
-                <svg xmlns="http://www.w3.org/2000/svg" data-cache="disabled" @ref="SvgReference" style="height: @_svgDoc.Height; width: @_svgDoc.Width;" data-src="@_pathForSvg" id="svg2" fill="@_svgDoc.Fill"> </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" data-cache="disabled" @ref="SvgReference" width="@_svgDoc.Width" height="@_svgDoc.Height" style="overflow: scroll;" data-src="@_pathForSvg" id="svg3" fill="@_svgDoc.Fill">
+
+                </svg> @*was svg 2*@
+
+
+                <svg @ref="MarkerSvgReference" xmlns="http://www.w3.org/2000/svg" width="@_svgDoc.Width" height="@_svgDoc.Height" style="overflow: scroll;" id="markerSvg2" @onmousemove=@(e => MouseSrv.FireMove(this, e)) @onmouseup=@(e => MouseSrv.FireUp(this, e))>
+                    <Draggable @bind-X=_x @bind-Y=_y>
+                        <circle r="6" stroke="black" class="Markers" stroke-width="1" fill="gray"/>
+                    </Draggable>
+                    @foreach (var marker in _markers)
+                    {
+                        <Draggable X="marker.X" Y="marker.Y">
+                            <circle id="@marker.Name" class="Markers" fill="red" transform="translate(@marker.X,@marker.Y)" r="6" stroke="black" stroke-width="1"/>
+                        </Draggable>
+                    }
+
+                </svg>
             </div>
+
+
         </div>
     </div>
 }
@@ -75,12 +129,37 @@ else
   
         overflow: scroll;
     }
+
+    .Markers:hover {
+        cursor: pointer;
+        fill: white !important;
+    }
+
+    .deleteMarkers:hover {
+        cursor: pointer;
+        fill: white !important;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    /*This is to prevent text highlighting when dragging*/
+
+    .dragtext {
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
 </style>
 
 @code {
 
     private bool _loaded;
-    bool? Checked = true;
+    readonly bool? Checked = true;
     private SvgDocument? _svgDoc;
     private string _pathForSvg = "";
     private ElementReference SvgReference { get; set; }
@@ -100,7 +179,7 @@ else
         }
         foreach (var marker in _markers)
         {
-        SvgHelperService.AddMarker("wwwroot\\\\Maps\\\\mode.svg", marker.X.ToString(), marker.Y.ToString());
+    //SvgHelperService.AddMarker("wwwroot\\\\Maps\\\\mode.svg", marker.X.ToString(), marker.Y.ToString());
         }
 
         _svgDoc = SvgDocument.Open<SvgDocument>("wwwroot\\\\Maps\\\\mode.svg");
@@ -115,14 +194,27 @@ else
         for (var i = 0; i < 10; i++)
         {
             var temp = new MarkerModel
-                {
-                    X = i * 10 + 100,
-                    Y = i * 10 + 2 + 100,
-                    Name = $"Marker {i.ToString()}"
-                };
+            {
+                X = i * 10 + 100,
+                Y = i * 10 + 2 + 100,
+                Name = $"Marker {i.ToString()}"
+            };
             tempMarkers.Add(temp);
         }
         return tempMarkers;
+    }
+
+
+    private async void ZoomIn()
+    {
+        await JsRuntime.InvokeVoidAsync("ZoomIn", "in", SvgReference, MarkerSvgReference);
+        StateHasChanged();
+    }
+
+    private async void ZoomOut()
+    {
+        await JsRuntime.InvokeVoidAsync("ZoomIn", "out", SvgReference, MarkerSvgReference);
+        StateHasChanged();
     }
 
     private record MarkerModel

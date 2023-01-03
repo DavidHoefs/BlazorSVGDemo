@@ -1,0 +1,56 @@
+#svg {
+  float: right;
+  overflow: scroll;
+  position: absolute;
+  z-index: -1;
+}
+
+#svg2 {
+  /*float: right;*/
+  overflow: scroll;
+  /*position: absolute;*/
+  z-index: -1;
+}
+
+.svg-container {
+  align-content: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 5% 5% 5% 5%;
+}
+
+.header {
+  align-content: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 0 70px;
+}
+
+.Markers:hover {
+  cursor: pointer;
+  fill: white !important;
+}
+
+.deleteMarkers:hover {
+  cursor: pointer;
+  fill: white !important;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/*This is to prevent text highlighting when dragging*/
+
+.dragtext {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}

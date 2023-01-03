@@ -11,9 +11,15 @@
     <base href="~/"/>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
     <link href="css/site.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/6.5.95/css/materialdesignicons.min.css">
     <link href="/BlazorSVGDemo.styles.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="favicon.png"/>
     <link href="css/SvgStyle.css" rel="stylesheet"/>
+    <link href="css/output.css" type="text/css"/>
+    <!-- MDI Icons -->
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/6.5.95/css/materialdesignicons.min.css">
+    @*<script src="https://cdn.tailwindcss.com"></script>*@
+
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
 </head>
 <body>
@@ -32,6 +38,7 @@
 
 <script src="_framework/blazor.server.js"></script>
 <script src="JS/SvgHelper.js"></script>
+
 <script>
 
     window.ContainerPos = (input) => {
